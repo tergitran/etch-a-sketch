@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Etch-a-Sketch by tergitran</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        body {
+            background-color: lightslategray;
+            position: relative;
+        }
+
+        header {
+            text-align: center;
+            font-size: 40pt;
+            color: wheat;
+            text-shadow: 2px 2px 5px rgb(0, 0, 0);
+        }
+
+        #toolbar {
+            background-color: honeydew;
+            width: 50vw;
+            margin: 20px auto;
+        }
+
+        .container {
+            box-sizing: content-box;
+            margin: 0 auto;
+            background-color: white;
+            width: 600px;
+            border: 1px solid grey;
+            height: 600px;
+        }
+
+        #btn {
+            padding: 10px;
+            background-color: lightcoral;
+            font-size: 13pt;
+        }
+    </style>
+</head>
+
+<body>
+    <header>Etch a Sketch</header>
+    <div id="toolbar">
+        <button id="btn">Reset</button>
+    </div>
+    <div class="container"></div>
+    <script>
+        const container = document.querySelector('.container');
+        const btn = document.querySelector('#btn');
+
+        let size = 10;
+        createSquare(size);
+        btn.addEventListener('click', resetSize);
+
+        function createSquare(size) {
+            let size_number = size * size;
+            for (let i = 0; i < size_number; i++) {
+                let div = document.createElement('div');
+                div.classList.add('square');
+                div.style.cssText = `border: 1px solid grey; width: ${600 / parseInt(size)}px; height: ${600 / parseInt(size)}px; display: inline-block; margin-bottom: -4px`;
+                container.appendChild(div);
+            }
+            const divs = document.querySelectorAll('.square');
+            divs.forEach(div => {
+                div.addEventListener('mouseenter', () => {
+                    div.style.backgroundColor = "blue";
+                })
+            });
+            // divs.forEach(div => div.addEventListener('mouseenter', changeColor));
+        }
+
+        // function changeColor(){
+        //     item.style.backgroundColor = "blue";
+        // }
+
+        function resetSize() {
+            size = prompt("Nhap kich thuoc: ");
+            if (size) {
+                const divs = document.querySelectorAll('.square');
+                divs.forEach(div => {
+                    container.removeChild(div);
+                });
+                createSquare(size);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
